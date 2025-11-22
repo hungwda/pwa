@@ -1,0 +1,242 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0, viewport-fit=cover">
+  <meta name="description" content="A fast, reliable, and engaging Progressive Web App with offline support">
+  <meta name="theme-color" content="#2196F3">
+
+  <!-- PWA Meta Tags -->
+  <meta name="mobile-web-app-capable" content="yes">
+  <meta name="apple-mobile-web-app-capable" content="yes">
+  <meta name="apple-mobile-web-app-status-bar-style" content="default">
+  <meta name="apple-mobile-web-app-title" content="PWA Template">
+
+  <!-- SEO -->
+  <meta name="keywords" content="pwa, progressive web app, offline, fast, reliable">
+  <meta name="author" content="PWA Team">
+  <link rel="canonical" href="https://yourapp.com/">
+
+  <!-- Open Graph -->
+  <meta property="og:type" content="website">
+  <meta property="og:title" content="Modern PWA Template">
+  <meta property="og:description" content="A fast, reliable, and engaging Progressive Web App">
+  <meta property="og:url" content="https://yourapp.com/">
+  <meta property="og:image" content="/assets/icons/icon-512x512.png">
+
+  <!-- Twitter Card -->
+  <meta name="twitter:card" content="summary_large_image">
+  <meta name="twitter:title" content="Modern PWA Template">
+  <meta name="twitter:description" content="A fast, reliable, and engaging Progressive Web App">
+  <meta name="twitter:image" content="/assets/icons/icon-512x512.png">
+
+  <!-- PWA Manifest -->
+  <link rel="manifest" href="/manifest.json">
+
+  <!-- Favicon -->
+  <link rel="icon" type="image/png" sizes="32x32" href="/assets/icons/icon-192x192.png">
+  <link rel="apple-touch-icon" sizes="192x192" href="/assets/icons/icon-192x192.png">
+
+  <!-- Stylesheets -->
+  <link rel="stylesheet" href="/css/main.css">
+  <link rel="stylesheet" href="/css/skeleton.css">
+  <link rel="stylesheet" href="/css/modal.css">
+  <link rel="stylesheet" href="/css/responsive.css">
+
+  <title>Modern PWA Template</title>
+</head>
+<body>
+  <!-- Install Prompt Banner -->
+  <div id="install-banner" class="install-banner hidden" role="banner" aria-label="Install app banner">
+    <div class="install-banner-content">
+      <span class="install-banner-text">Install this app for a better experience</span>
+      <div class="install-banner-actions">
+        <button id="install-btn" class="btn btn-primary" aria-label="Install app">Install</button>
+        <button id="dismiss-install" class="btn btn-text" aria-label="Dismiss install banner">Not now</button>
+      </div>
+    </div>
+  </div>
+
+  <!-- Onboarding Modal -->
+  <div id="onboarding-modal" class="modal hidden" role="dialog" aria-labelledby="onboarding-title" aria-modal="true">
+    <div class="modal-content">
+      <div class="onboarding-slides">
+        <!-- Slide 1 -->
+        <div class="onboarding-slide active" data-slide="1">
+          <div class="onboarding-icon">🚀</div>
+          <h2 id="onboarding-title">Welcome to PWA Template</h2>
+          <p>A fast, reliable, and engaging Progressive Web App that works offline</p>
+        </div>
+
+        <!-- Slide 2 -->
+        <div class="onboarding-slide" data-slide="2">
+          <div class="onboarding-icon">📱</div>
+          <h2>Works Everywhere</h2>
+          <p>Responsive design that adapts to any device or screen size</p>
+        </div>
+
+        <!-- Slide 3 -->
+        <div class="onboarding-slide" data-slide="3">
+          <div class="onboarding-icon">⚡</div>
+          <h2>Lightning Fast</h2>
+          <p>Optimized for speed with instant loading and smooth interactions</p>
+        </div>
+
+        <!-- Slide 4 -->
+        <div class="onboarding-slide" data-slide="4">
+          <div class="onboarding-icon">📡</div>
+          <h2>Offline Ready</h2>
+          <p>Keep working even without an internet connection</p>
+        </div>
+      </div>
+
+      <div class="onboarding-controls">
+        <div class="onboarding-dots">
+          <span class="dot active" data-slide="1"></span>
+          <span class="dot" data-slide="2"></span>
+          <span class="dot" data-slide="3"></span>
+          <span class="dot" data-slide="4"></span>
+        </div>
+        <div class="onboarding-buttons">
+          <button id="skip-onboarding" class="btn btn-text">Skip</button>
+          <button id="next-onboarding" class="btn btn-primary">Next</button>
+          <button id="finish-onboarding" class="btn btn-primary hidden">Get Started</button>
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <!-- App Shell -->
+  <div id="app" class="app-container">
+    <!-- Header -->
+    <header class="app-header" role="banner">
+      <div class="header-content">
+        <button id="menu-toggle" class="icon-btn" aria-label="Toggle menu" aria-expanded="false">
+          <svg width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+            <line x1="3" y1="12" x2="21" y2="12"></line>
+            <line x1="3" y1="6" x2="21" y2="6"></line>
+            <line x1="3" y1="18" x2="21" y2="18"></line>
+          </svg>
+        </button>
+        <h1 class="app-title">PWA Template</h1>
+        <button id="share-btn" class="icon-btn" aria-label="Share">
+          <svg width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+            <circle cx="18" cy="5" r="3"></circle>
+            <circle cx="6" cy="12" r="3"></circle>
+            <circle cx="18" cy="19" r="3"></circle>
+            <line x1="8.59" y1="13.51" x2="15.42" y2="17.49"></line>
+            <line x1="15.41" y1="6.51" x2="8.59" y2="10.49"></line>
+          </svg>
+        </button>
+      </div>
+    </header>
+
+    <!-- Main Content -->
+    <main class="app-main" role="main">
+      <!-- Skeleton Screen (shown during initial load) -->
+      <div id="skeleton-screen" class="skeleton-container">
+        <div class="skeleton-header">
+          <div class="skeleton-avatar"></div>
+          <div class="skeleton-lines">
+            <div class="skeleton-line skeleton-line-short"></div>
+            <div class="skeleton-line skeleton-line-medium"></div>
+          </div>
+        </div>
+        <div class="skeleton-card">
+          <div class="skeleton-image"></div>
+          <div class="skeleton-line"></div>
+          <div class="skeleton-line skeleton-line-short"></div>
+        </div>
+        <div class="skeleton-card">
+          <div class="skeleton-image"></div>
+          <div class="skeleton-line"></div>
+          <div class="skeleton-line skeleton-line-short"></div>
+        </div>
+      </div>
+
+      <!-- Actual Content (hidden initially) -->
+      <div id="main-content" class="content-container hidden">
+        <section class="hero-section">
+          <h2>Welcome to Your PWA</h2>
+          <p>This is a modern Progressive Web App with all the features you need</p>
+          <div class="feature-grid">
+            <div class="feature-card" tabindex="0">
+              <div class="feature-icon">⚡</div>
+              <h3>Fast</h3>
+              <p>Loads in under 5 seconds with smooth interactions</p>
+            </div>
+            <div class="feature-card" tabindex="0">
+              <div class="feature-icon">📡</div>
+              <h3>Offline</h3>
+              <p>Works without internet connection</p>
+            </div>
+            <div class="feature-card" tabindex="0">
+              <div class="feature-icon">📱</div>
+              <h3>Responsive</h3>
+              <p>Adapts to all devices and screen sizes</p>
+            </div>
+            <div class="feature-card" tabindex="0">
+              <div class="feature-icon">🔒</div>
+              <h3>Secure</h3>
+              <p>Served over HTTPS for your safety</p>
+            </div>
+          </div>
+        </section>
+
+        <section class="demo-section">
+          <h3>Try It Out</h3>
+          <div class="demo-controls">
+            <button class="btn btn-primary" id="test-offline">Test Offline Mode</button>
+            <button class="btn btn-secondary" id="clear-cache">Clear Cache</button>
+          </div>
+          <div id="status-message" class="status-message" role="status" aria-live="polite"></div>
+        </section>
+      </div>
+    </main>
+
+    <!-- Bottom Navigation -->
+    <nav class="bottom-nav" role="navigation" aria-label="Main navigation">
+      <a href="/" class="nav-item active" aria-label="Home" aria-current="page">
+        <svg width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+          <path d="M3 9l9-7 9 7v11a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2z"></path>
+          <polyline points="9 22 9 12 15 12 15 22"></polyline>
+        </svg>
+        <span>Home</span>
+      </a>
+      <a href="/explore" class="nav-item" aria-label="Explore">
+        <svg width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+          <circle cx="11" cy="11" r="8"></circle>
+          <path d="m21 21-4.35-4.35"></path>
+        </svg>
+        <span>Explore</span>
+      </a>
+      <a href="/favorites" class="nav-item" aria-label="Favorites">
+        <svg width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+          <path d="M20.84 4.61a5.5 5.5 0 0 0-7.78 0L12 5.67l-1.06-1.06a5.5 5.5 0 0 0-7.78 7.78l1.06 1.06L12 21.23l7.78-7.78 1.06-1.06a5.5 5.5 0 0 0 0-7.78z"></path>
+        </svg>
+        <span>Favorites</span>
+      </a>
+      <a href="/settings" class="nav-item" aria-label="Settings">
+        <svg width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+          <circle cx="12" cy="12" r="3"></circle>
+          <path d="M12 1v6m0 6v6m6-12v6m0 6v6M6 1v6m0 6v6"></path>
+        </svg>
+        <span>Settings</span>
+      </a>
+    </nav>
+  </div>
+
+  <!-- Offline indicator -->
+  <div id="offline-indicator" class="offline-indicator hidden" role="alert">
+    <span>You are offline</span>
+  </div>
+
+  <!-- Scripts -->
+  <script src="/js/utils/helpers.js"></script>
+  <script src="/js/modules/install.js"></script>
+  <script src="/js/modules/onboarding.js"></script>
+  <script src="/js/modules/navigation.js"></script>
+  <script src="/js/modules/share.js"></script>
+  <script src="/js/app.js"></script>
+</body>
+</html>
