@@ -40,14 +40,17 @@ pwa/
 │   ├── main.css           # Core styles with CSS variables
 │   ├── skeleton.css       # Loading placeholders
 │   ├── modal.css          # Modal and onboarding styles
+│   ├── settings.css       # Settings page styles
 │   └── responsive.css     # Mobile-first responsive design
 ├── js/
 │   ├── app.js             # Main application logic
 │   ├── modules/
 │   │   ├── install.js     # Install prompt handling
 │   │   ├── onboarding.js  # User onboarding flow
-│   │   ├── navigation.js  # App navigation & routing
-│   │   └── share.js       # Web Share API integration
+│   │   ├── navigation.js  # Hash-based routing (offline-first)
+│   │   ├── share.js       # Web Share API integration
+│   │   ├── settings.js    # Settings page with logging
+│   │   └── logger.js      # Developer logging system
 │   └── utils/
 │       └── helpers.js     # Utility functions
 └── assets/
@@ -97,27 +100,33 @@ cd pwa
 
 ### 4. Test Locally
 
-#### Option 1: Using Python (Recommended)
+This PWA uses **hash-based routing** (`#/explore`, `#/settings`) which works perfectly offline and doesn't require any special server configuration. Just open `index.html` directly in your browser!
+
+#### Option 1: Open File Directly (No Server Needed!)
 
 ```bash
-# Python 3
-python3 -m http.server 8000
-
-# Python 2
-python -m SimpleHTTPServer 8000
+# Simply open in browser
+open index.html  # macOS
+xdg-open index.html  # Linux
+start index.html  # Windows
 ```
 
-#### Option 2: Using Node.js
+Or drag and drop `index.html` into your browser.
+
+#### Option 2: Using Python (For HTTPS Testing)
 
 ```bash
-# Install http-server globally
-npm install -g http-server
+python3 -m http.server 8000
+```
 
-# Run server
+#### Option 3: Using Node.js
+
+```bash
+npm install -g http-server
 http-server -p 8000
 ```
 
-#### Option 3: Using PHP
+#### Option 4: Using PHP
 
 ```bash
 php -S localhost:8000
@@ -125,7 +134,11 @@ php -S localhost:8000
 
 Visit `http://localhost:8000` in your browser.
 
-> **Note**: Service workers require HTTPS in production. Use localhost for development.
+> **Why hash-based routing?**
+> Hash-based URLs (`#/explore`) allow the app to work completely offline without any server.
+> The browser never makes a server request when the hash changes, making it perfect for PWAs.
+
+> **Note**: Service workers require HTTPS in production. Localhost and `file://` URLs work for development.
 
 ### 5. Test PWA Features
 

@@ -3,7 +3,7 @@
  * Implements caching strategies for offline functionality
  */
 
-const CACHE_VERSION = 'v1.0.0';
+const CACHE_VERSION = 'v1.2.0';
 const CACHE_NAME = `pwa-cache-${CACHE_VERSION}`;
 const RUNTIME_CACHE = `runtime-${CACHE_VERSION}`;
 
@@ -11,6 +11,7 @@ const RUNTIME_CACHE = `runtime-${CACHE_VERSION}`;
 const PRECACHE_ASSETS = [
   '/',
   '/index.html',
+  '/offline.html',
   '/css/main.css',
   '/css/skeleton.css',
   '/css/modal.css',
@@ -79,7 +80,9 @@ self.addEventListener('fetch', (event) => {
     return;
   }
 
-  // Cache-first strategy for assets
+  // Cache-first strategy for all assets
+  // Hash-based routing (#/explore, #/settings) always requests index.html
+  // so no special navigation handling needed
   event.respondWith(cacheFirst(event.request));
 });
 
