@@ -1,0 +1,50 @@
+# Dependencies
+node_modules/
+npm-debug.log*
+yarn-debug.log*
+yarn-error.log*
+
+# Build outputs
+dist/
+build/
+.cache/
+
+# Environment variables
+.env
+.env.local
+.env.development
+.env.production
+
+# IDE and Editor
+.vscode/
+.idea/
+*.swp
+*.swo
+*~
+.DS_Store
+
+# OS
+Thumbs.db
+.DS_Store
+*.log
+
+# Testing
+coverage/
+.nyc_output/
+
+# Temporary files
+*.tmp
+*.temp
+.temp/
+tmp/
+
+# Service worker cache (for development)
+sw-cache/
+
+# Debug logs
+logs/
+*.log
+
+# Optional: Ignore generated icons (if regenerating from SVG)
+# Uncomment if you want to regenerate icons each time
+# assets/icons/icon-*.png

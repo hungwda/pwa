@@ -1,0 +1,272 @@
+/**
+ * Modal and Onboarding Styles
+ * Styles for modal dialogs and onboarding experience
+ */
+
+/* Modal Overlay */
+.modal {
+  position: fixed;
+  top: 0;
+  left: 0;
+  right: 0;
+  bottom: 0;
+  background: rgba(0, 0, 0, 0.6);
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  z-index: var(--z-modal, 400);
+  animation: fadeIn 0.3s ease;
+  backdrop-filter: blur(4px);
+}
+
+.modal.hidden {
+  display: none;
+}
+
+/* Modal Content */
+.modal-content {
+  background: var(--surface, #FFFFFF);
+  border-radius: var(--radius-lg, 12px);
+  max-width: 90%;
+  max-height: 90vh;
+  width: 500px;
+  box-shadow: 0 20px 60px rgba(0, 0, 0, 0.3);
+  overflow: hidden;
+  animation: slideUp 0.4s cubic-bezier(0.16, 1, 0.3, 1);
+}
+
+@keyframes fadeIn {
+  from {
+    opacity: 0;
+  }
+  to {
+    opacity: 1;
+  }
+}
+
+@keyframes slideUp {
+  from {
+    opacity: 0;
+    transform: translateY(40px) scale(0.95);
+  }
+  to {
+    opacity: 1;
+    transform: translateY(0) scale(1);
+  }
+}
+
+/* Onboarding Slides */
+.onboarding-slides {
+  position: relative;
+  min-height: 400px;
+  padding: var(--spacing-xl, 32px);
+  overflow: hidden;
+}
+
+.onboarding-slide {
+  position: absolute;
+  top: 0;
+  left: 0;
+  right: 0;
+  bottom: 0;
+  padding: var(--spacing-xl, 32px);
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  text-align: center;
+  opacity: 0;
+  transform: translateX(100%);
+  transition: all 0.4s cubic-bezier(0.4, 0, 0.2, 1);
+  pointer-events: none;
+}
+
+.onboarding-slide.active {
+  opacity: 1;
+  transform: translateX(0);
+  pointer-events: auto;
+}
+
+.onboarding-icon {
+  font-size: 80px;
+  margin-bottom: var(--spacing-lg, 24px);
+  animation: bounceIn 0.6s cubic-bezier(0.68, -0.55, 0.265, 1.55);
+}
+
+@keyframes bounceIn {
+  0% {
+    opacity: 0;
+    transform: scale(0.3);
+  }
+  50% {
+    opacity: 1;
+    transform: scale(1.05);
+  }
+  70% {
+    transform: scale(0.9);
+  }
+  100% {
+    transform: scale(1);
+  }
+}
+
+.onboarding-slide h2 {
+  font-size: var(--font-size-xl, 24px);
+  color: var(--text-primary, #212121);
+  margin-bottom: var(--spacing-md, 16px);
+  font-weight: 600;
+}
+
+.onboarding-slide p {
+  font-size: var(--font-size-md, 16px);
+  color: var(--text-secondary, #757575);
+  line-height: 1.6;
+  max-width: 400px;
+}
+
+/* Onboarding Controls */
+.onboarding-controls {
+  padding: var(--spacing-lg, 24px);
+  background: var(--background, #FAFAFA);
+  border-top: 1px solid var(--divider-color, #E0E0E0);
+}
+
+.onboarding-dots {
+  display: flex;
+  justify-content: center;
+  gap: var(--spacing-sm, 8px);
+  margin-bottom: var(--spacing-lg, 24px);
+}
+
+.dot {
+  width: 8px;
+  height: 8px;
+  border-radius: 50%;
+  background: var(--divider-color, #BDBDBD);
+  cursor: pointer;
+  transition: all var(--transition-base, 0.25s ease);
+}
+
+.dot:hover,
+.dot:focus {
+  background: var(--text-secondary, #757575);
+  transform: scale(1.2);
+}
+
+.dot.active {
+  background: var(--primary-color, #2196F3);
+  width: 24px;
+  border-radius: 4px;
+}
+
+.onboarding-buttons {
+  display: flex;
+  justify-content: space-between;
+  gap: var(--spacing-md, 16px);
+}
+
+.onboarding-buttons .btn {
+  flex: 1;
+}
+
+/* Responsive adjustments */
+@media (max-width: 576px) {
+  .modal-content {
+    width: 95%;
+    max-height: 95vh;
+  }
+
+  .onboarding-slides {
+    min-height: 350px;
+    padding: var(--spacing-lg, 24px);
+  }
+
+  .onboarding-slide {
+    padding: var(--spacing-lg, 24px);
+  }
+
+  .onboarding-icon {
+    font-size: 60px;
+  }
+
+  .onboarding-slide h2 {
+    font-size: var(--font-size-lg, 20px);
+  }
+
+  .onboarding-slide p {
+    font-size: var(--font-size-sm, 14px);
+  }
+
+  .onboarding-buttons {
+    flex-direction: column-reverse;
+  }
+}
+
+/* Dark mode support */
+@media (prefers-color-scheme: dark) {
+  .modal {
+    background: rgba(0, 0, 0, 0.8);
+  }
+
+  .modal-content {
+    background: var(--surface, #1E1E1E);
+  }
+
+  .onboarding-controls {
+    background: var(--background, #121212);
+    border-top-color: var(--divider-color, #373737);
+  }
+
+  .onboarding-slide h2 {
+    color: var(--text-primary, #FFFFFF);
+  }
+
+  .onboarding-slide p {
+    color: var(--text-secondary, #B0B0B0);
+  }
+}
+
+/* Accessibility - Reduced motion */
+@media (prefers-reduced-motion: reduce) {
+  .modal,
+  .modal-content,
+  .onboarding-slide,
+  .onboarding-icon,
+  .dot {
+    animation: none;
+    transition: none;
+  }
+
+  .onboarding-slide.active {
+    opacity: 1;
+    transform: none;
+  }
+}
+
+/* High contrast mode */
+@media (prefers-contrast: high) {
+  .modal-content {
+    border: 2px solid currentColor;
+  }
+
+  .dot {
+    border: 2px solid currentColor;
+  }
+
+  .dot.active {
+    border-color: var(--primary-color, #2196F3);
+  }
+}
+
+/* Focus styles for keyboard navigation */
+.dot:focus-visible {
+  outline: 2px solid var(--primary-color, #2196F3);
+  outline-offset: 2px;
+}
+
+/* Touch feedback for mobile */
+@media (hover: none) and (pointer: coarse) {
+  .dot:active {
+    transform: scale(1.3);
+  }
+}
