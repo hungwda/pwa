@@ -97,7 +97,16 @@ cd pwa
 
 ### 4. Test Locally
 
-#### Option 1: Using Python (Recommended)
+#### Option 1: Using Custom Python Server (Recommended for SPA Routing)
+
+```bash
+# Run the included server with SPA routing support
+python3 server.py
+```
+
+This server properly handles client-side routing, so you can refresh on any route (like `/settings`) without getting a 404 error.
+
+#### Option 2: Using Python Simple HTTP Server
 
 ```bash
 # Python 3
@@ -107,25 +116,31 @@ python3 -m http.server 8000
 python -m SimpleHTTPServer 8000
 ```
 
-#### Option 2: Using Node.js
+**Note**: This doesn't support SPA routing - refreshing on routes like `/settings` will show a 404.
+
+#### Option 3: Using Node.js
 
 ```bash
 # Install http-server globally
 npm install -g http-server
 
-# Run server
-http-server -p 8000
+# Run server with SPA support
+http-server -p 8000 --proxy http://localhost:8000?
 ```
 
-#### Option 3: Using PHP
+#### Option 4: Using PHP
 
 ```bash
 php -S localhost:8000
 ```
 
+**Note**: PHP's built-in server doesn't support SPA routing out of the box.
+
 Visit `http://localhost:8000` in your browser.
 
 > **Note**: Service workers require HTTPS in production. Use localhost for development.
+>
+> **SPA Routing**: If you need to refresh pages on client-side routes (like `/settings`, `/explore`, etc.), use the custom Python server (`server.py`) or configure your server to redirect all routes to `index.html`.
 
 ### 5. Test PWA Features
 
