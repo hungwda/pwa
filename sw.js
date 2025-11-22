@@ -3,7 +3,7 @@
  * Implements caching strategies for offline functionality
  */
 
-const CACHE_VERSION = 'v1.1.0';
+const CACHE_VERSION = 'v1.2.0';
 const CACHE_NAME = `pwa-cache-${CACHE_VERSION}`;
 const RUNTIME_CACHE = `runtime-${CACHE_VERSION}`;
 
@@ -80,15 +80,9 @@ self.addEventListener('fetch', (event) => {
     return;
   }
 
-  // For navigation requests (HTML pages), use navigation strategy
-  // This fixes the SPA routing issue where refreshing on /explore or /settings returns 404
-  if (event.request.mode === 'navigate' ||
-      (event.request.method === 'GET' && event.request.headers.get('accept').includes('text/html'))) {
-    event.respondWith(navigationFallback(event.request));
-    return;
-  }
-
-  // Cache-first strategy for assets
+  // Cache-first strategy for all assets
+  // Hash-based routing (#/explore, #/settings) always requests index.html
+  // so no special navigation handling needed
   event.respondWith(cacheFirst(event.request));
 });
 
@@ -148,51 +142,6 @@ async function networkFirst(request) {
     const cached = await cache.match(request);
     if (cached) {
       return cached;
-    }
-
-    throw error;
-  }
-}
-
-/**
- * Navigation fallback strategy
- * For SPA routing: return index.html for all navigation requests
- * This ensures that refreshing on /explore, /settings, etc. works correctly
- */
-async function navigationFallback(request) {
-  const cache = await caches.open(CACHE_NAME);
-
-  try {
-    // Try to fetch the actual request first
-    const response = await fetch(request);
-
-    // If we get a valid response, return it
-    if (response.status === 200) {
-      return response;
-    }
-
-    // If we get a 404 or other error, return index.html
-    // This allows the client-side router to handle the route
-    console.log('[SW] Navigation request failed, returning index.html for:', request.url);
-    const indexPage = await cache.match('/index.html');
-    if (indexPage) {
-      return indexPage;
-    }
-
-    return response;
-  } catch (error) {
-    // Network failed (offline), return index.html from cache
-    console.log('[SW] Network unavailable, returning cached index.html for:', request.url);
-    const indexPage = await cache.match('/index.html');
-
-    if (indexPage) {
-      return indexPage;
-    }
-
-    // If index.html is not in cache, try offline page
-    const offlinePage = await cache.match('/offline.html');
-    if (offlinePage) {
-      return offlinePage;
     }
 
     throw error;

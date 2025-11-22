@@ -36,9 +36,6 @@ pwa/
 ├── manifest.json           # PWA manifest configuration
 ├── sw.js                   # Service worker with caching
 ├── offline.html            # Offline fallback page
-├── server.py               # Python development server (SPA routing)
-├── server.js               # Node.js development server (SPA routing)
-├── package.json            # Node.js project configuration
 ├── css/
 │   ├── main.css           # Core styles with CSS variables
 │   ├── skeleton.css       # Loading placeholders
@@ -50,7 +47,7 @@ pwa/
 │   ├── modules/
 │   │   ├── install.js     # Install prompt handling
 │   │   ├── onboarding.js  # User onboarding flow
-│   │   ├── navigation.js  # App navigation & routing (SPA)
+│   │   ├── navigation.js  # Hash-based routing (offline-first)
 │   │   ├── share.js       # Web Share API integration
 │   │   ├── settings.js    # Settings page with logging
 │   │   └── logger.js      # Developer logging system
@@ -103,30 +100,45 @@ cd pwa
 
 ### 4. Test Locally
 
-**⚠️ Important**: This PWA uses client-side routing (SPA). You **must** use our custom development server to handle routes correctly.
+This PWA uses **hash-based routing** (`#/explore`, `#/settings`) which works perfectly offline and doesn't require any special server configuration. Just open `index.html` directly in your browser!
 
-#### Option 1: Python Server (Recommended)
+#### Option 1: Open File Directly (No Server Needed!)
 
 ```bash
-python3 server.py
+# Simply open in browser
+open index.html  # macOS
+xdg-open index.html  # Linux
+start index.html  # Windows
 ```
 
-#### Option 2: Node.js Server
+Or drag and drop `index.html` into your browser.
+
+#### Option 2: Using Python (For HTTPS Testing)
 
 ```bash
-node server.js
-# or
-npm start
+python3 -m http.server 8000
+```
+
+#### Option 3: Using Node.js
+
+```bash
+npm install -g http-server
+http-server -p 8000
+```
+
+#### Option 4: Using PHP
+
+```bash
+php -S localhost:8000
 ```
 
 Visit `http://localhost:8000` in your browser.
 
-> **Why not `python -m http.server`?**
-> Standard HTTP servers return 404 when you refresh on routes like `/explore` or `/settings`.
-> Our custom servers serve `index.html` for all routes, enabling SPA routing to work correctly.
-> See [DEV_SERVER.md](DEV_SERVER.md) for details.
+> **Why hash-based routing?**
+> Hash-based URLs (`#/explore`) allow the app to work completely offline without any server.
+> The browser never makes a server request when the hash changes, making it perfect for PWAs.
 
-> **Note**: Service workers require HTTPS in production. Use localhost for development.
+> **Note**: Service workers require HTTPS in production. Localhost and `file://` URLs work for development.
 
 ### 5. Test PWA Features
 

@@ -16,14 +16,12 @@
     setupNavigation();
     setupMenuToggle();
     setupBackButton();
-    updateActiveNav();
 
-    // Load content for current path (important for SPA routing on page refresh)
-    const currentPath = window.location.pathname;
-    if (currentPath !== '/') {
-      // If we're on a subpage (e.g., /explore, /settings), load that content
-      loadContent(currentPath);
-    }
+    // Load content for current hash (hash-based routing for offline-first PWA)
+    const currentHash = window.location.hash || '#/';
+    const currentPath = currentHash.slice(1) || '/'; // Remove # from hash
+    loadContent(currentPath);
+    updateActiveNav(currentPath);
   }
 
   /**
@@ -34,8 +32,8 @@
       helpers.on(item, 'click', handleNavClick);
     });
 
-    // Handle browser back/forward
-    helpers.on(window, 'popstate', handlePopState);
+    // Handle hash changes (for browser back/forward and direct hash navigation)
+    helpers.on(window, 'hashchange', handleHashChange);
   }
 
   /**
@@ -48,8 +46,9 @@
     const href = event.currentTarget.getAttribute('href');
     const label = event.currentTarget.getAttribute('aria-label');
 
-    // Navigate to the page
-    navigateTo(href, label);
+    // For hash-based routing, href is already in format #/path
+    // Just set the hash and hashchange event will handle the rest
+    window.location.hash = href;
 
     // Provide touch feedback
     provideTouchFeedback(event.currentTarget);
@@ -57,18 +56,12 @@
 
   /**
    * Navigate to a page
-   * @param {string} path - Path to navigate to
+   * @param {string} path - Path to navigate to (without #)
    * @param {string} title - Page title
    */
   function navigateTo(path, title = 'PWA Template') {
-    // Update browser history
-    window.history.pushState({ path }, title, path);
-
-    // Update active navigation
-    updateActiveNav(path);
-
-    // Load content
-    loadContent(path);
+    // Update hash (this will trigger hashchange event)
+    window.location.hash = '#' + path;
 
     // Update document title
     document.title = title;
@@ -78,11 +71,13 @@
   }
 
   /**
-   * Handle browser back/forward buttons
-   * @param {PopStateEvent} event
+   * Handle hash changes (browser back/forward, direct navigation)
+   * @param {HashChangeEvent} event
    */
-  function handlePopState(event) {
-    const path = event.state?.path || '/';
+  function handleHashChange(event) {
+    const hash = window.location.hash || '#/';
+    const path = hash.slice(1) || '/'; // Remove # from hash
+
     updateActiveNav(path);
     loadContent(path);
   }
