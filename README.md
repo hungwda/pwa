@@ -36,18 +36,24 @@ pwa/
 ├── manifest.json           # PWA manifest configuration
 ├── sw.js                   # Service worker with caching
 ├── offline.html            # Offline fallback page
+├── server.py               # Python development server (SPA routing)
+├── server.js               # Node.js development server (SPA routing)
+├── package.json            # Node.js project configuration
 ├── css/
 │   ├── main.css           # Core styles with CSS variables
 │   ├── skeleton.css       # Loading placeholders
 │   ├── modal.css          # Modal and onboarding styles
+│   ├── settings.css       # Settings page styles
 │   └── responsive.css     # Mobile-first responsive design
 ├── js/
 │   ├── app.js             # Main application logic
 │   ├── modules/
 │   │   ├── install.js     # Install prompt handling
 │   │   ├── onboarding.js  # User onboarding flow
-│   │   ├── navigation.js  # App navigation & routing
-│   │   └── share.js       # Web Share API integration
+│   │   ├── navigation.js  # App navigation & routing (SPA)
+│   │   ├── share.js       # Web Share API integration
+│   │   ├── settings.js    # Settings page with logging
+│   │   └── logger.js      # Developer logging system
 │   └── utils/
 │       └── helpers.js     # Utility functions
 └── assets/
@@ -97,33 +103,28 @@ cd pwa
 
 ### 4. Test Locally
 
-#### Option 1: Using Python (Recommended)
+**⚠️ Important**: This PWA uses client-side routing (SPA). You **must** use our custom development server to handle routes correctly.
+
+#### Option 1: Python Server (Recommended)
 
 ```bash
-# Python 3
-python3 -m http.server 8000
-
-# Python 2
-python -m SimpleHTTPServer 8000
+python3 server.py
 ```
 
-#### Option 2: Using Node.js
+#### Option 2: Node.js Server
 
 ```bash
-# Install http-server globally
-npm install -g http-server
-
-# Run server
-http-server -p 8000
-```
-
-#### Option 3: Using PHP
-
-```bash
-php -S localhost:8000
+node server.js
+# or
+npm start
 ```
 
 Visit `http://localhost:8000` in your browser.
+
+> **Why not `python -m http.server`?**
+> Standard HTTP servers return 404 when you refresh on routes like `/explore` or `/settings`.
+> Our custom servers serve `index.html` for all routes, enabling SPA routing to work correctly.
+> See [DEV_SERVER.md](DEV_SERVER.md) for details.
 
 > **Note**: Service workers require HTTPS in production. Use localhost for development.
 

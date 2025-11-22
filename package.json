@@ -1,0 +1,23 @@
+{
+  "name": "pwa-template",
+  "version": "1.1.0",
+  "description": "Modern Progressive Web App with offline support and SPA routing",
+  "main": "server.js",
+  "scripts": {
+    "start": "node server.js",
+    "dev": "node server.js",
+    "serve": "node server.js"
+  },
+  "keywords": [
+    "pwa",
+    "progressive-web-app",
+    "offline",
+    "service-worker",
+    "spa"
+  ],
+  "author": "PWA Team",
+  "license": "MIT",
+  "engines": {
+    "node": ">=12.0.0"
+  }
+}
