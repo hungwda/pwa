@@ -17,6 +17,13 @@
     setupMenuToggle();
     setupBackButton();
     updateActiveNav();
+
+    // Load content for current path (important for SPA routing on page refresh)
+    const currentPath = window.location.pathname;
+    if (currentPath !== '/') {
+      // If we're on a subpage (e.g., /explore, /settings), load that content
+      loadContent(currentPath);
+    }
   }
 
   /**
