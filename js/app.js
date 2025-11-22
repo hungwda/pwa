@@ -22,6 +22,16 @@
   function init() {
     console.log('[App] Initializing PWA v' + config.version);
 
+    // Initialize logger first to capture all logs
+    if (window.PWALogger) {
+      window.PWALogger.init();
+    }
+
+    // Initialize settings module
+    if (window.PWASettings) {
+      window.PWASettings.init();
+    }
+
     // Register service worker
     registerServiceWorker();
 
@@ -368,6 +378,7 @@
   window.PWAApp = {
     init,
     getInfo: getAppInfo,
+    getVersion: () => config.version,
     checkForUpdates,
     requestNotifications: requestNotificationPermission,
     config,

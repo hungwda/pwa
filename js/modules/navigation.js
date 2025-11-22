@@ -133,12 +133,110 @@
       return;
     }
 
-    // In a real app, you would load different content based on the path
-    // For now, we'll just update a simple message
     console.log('[Navigation] Content updated for path:', path);
+
+    // Route to appropriate page
+    switch (path) {
+      case '/':
+        renderHomePage(content);
+        break;
+      case '/explore':
+        renderExplorePage(content);
+        break;
+      case '/favorites':
+        renderFavoritesPage(content);
+        break;
+      case '/settings':
+        renderSettingsPage(content);
+        break;
+      default:
+        renderNotFoundPage(content);
+    }
 
     // Scroll to top
     window.scrollTo({ top: 0, behavior: 'smooth' });
+  }
+
+  /**
+   * Render home page
+   */
+  function renderHomePage(container) {
+    container.innerHTML = `
+      <div class="page-content">
+        <h1>Welcome to Modern PWA</h1>
+        <p>This is a Progressive Web App template with offline support.</p>
+        <div class="feature-grid">
+          <div class="feature-card">
+            <h3>📱 Installable</h3>
+            <p>Install on your device for a native app experience</p>
+          </div>
+          <div class="feature-card">
+            <h3>🔌 Offline Ready</h3>
+            <p>Works offline with smart caching strategies</p>
+          </div>
+          <div class="feature-card">
+            <h3>⚡ Fast</h3>
+            <p>Optimized for performance and speed</p>
+          </div>
+          <div class="feature-card">
+            <h3>🔧 Developer Tools</h3>
+            <p>Built-in logging and debugging capabilities</p>
+          </div>
+        </div>
+      </div>
+    `;
+  }
+
+  /**
+   * Render explore page
+   */
+  function renderExplorePage(container) {
+    container.innerHTML = `
+      <div class="page-content">
+        <h1>Explore</h1>
+        <p>Discover new features and content.</p>
+      </div>
+    `;
+  }
+
+  /**
+   * Render favorites page
+   */
+  function renderFavoritesPage(container) {
+    container.innerHTML = `
+      <div class="page-content">
+        <h1>Favorites</h1>
+        <p>Your saved items will appear here.</p>
+      </div>
+    `;
+  }
+
+  /**
+   * Render settings page
+   */
+  function renderSettingsPage(container) {
+    if (window.PWASettings) {
+      window.PWASettings.render(container);
+    } else {
+      container.innerHTML = `
+        <div class="page-content">
+          <h1>Settings</h1>
+          <p>Settings module not loaded.</p>
+        </div>
+      `;
+    }
+  }
+
+  /**
+   * Render 404 page
+   */
+  function renderNotFoundPage(container) {
+    container.innerHTML = `
+      <div class="page-content">
+        <h1>404 - Page Not Found</h1>
+        <p>The page you're looking for doesn't exist.</p>
+      </div>
+    `;
   }
 
   /**

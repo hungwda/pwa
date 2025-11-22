@@ -13,8 +13,10 @@
   --text-primary: #212121;
   --text-secondary: #757575;
   --divider-color: #BDBDBD;
+  --border-color: #E0E0E0;
   --background: #FAFAFA;
   --surface: #FFFFFF;
+  --surface-color: #FFFFFF;
   --error: #F44336;
   --success: #4CAF50;
 
@@ -242,6 +244,30 @@ body {
     opacity: 1;
     transform: translateY(0);
   }
+}
+
+/* Page Content */
+.page-content {
+  padding: var(--spacing-lg);
+  min-height: calc(100vh - 120px);
+}
+
+.page-content h1 {
+  font-size: var(--font-size-xxl);
+  margin-bottom: var(--spacing-md);
+  color: var(--text-primary);
+}
+
+.page-content h2 {
+  font-size: var(--font-size-xl);
+  margin-bottom: var(--spacing-md);
+  color: var(--text-primary);
+}
+
+.page-content p {
+  font-size: var(--font-size-md);
+  color: var(--text-secondary);
+  margin-bottom: var(--spacing-lg);
 }
 
 /* Hero Section */
